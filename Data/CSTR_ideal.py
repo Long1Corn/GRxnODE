@@ -55,7 +55,7 @@ def get_data(f=5, s=1, data=""):
 
 
 if __name__ == "__main__":
-    trainset, testset, scale = get_data(data="CSTR_1")
+    trainset, testset, scale = get_data()
 
     y = testset["y_data"].squeeze()
     p = testset["p_data"][0]

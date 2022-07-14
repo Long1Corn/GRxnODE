@@ -1,3 +1,4 @@
+import numpy
 import numpy as np
 import scipy.interpolate
 import torch
@@ -50,15 +51,15 @@ def plot_slices(x, y, z, data, xslice, yslice, zslice, x_d, y_d, z_d, ax=None, )
     ax.yaxis._axinfo["grid"]['linestyle'] = ":"
     ax.zaxis._axinfo["grid"]['linestyle'] = ":"
 
-    plt.show(dpi=1200)
+    plt.show()
 
     return xplot, yplot, zplot
 
 
 class Visualizer:
-    def __init__(self, model, datasets, data_scale, device="cuda"):
+    def __init__(self, model, datasets, data_scale, cfg):
         self.model = model
-        self.device = device
+        self.cfg = cfg
         self.data_scale = data_scale
         self.datasets = datasets
 
@@ -79,17 +80,6 @@ class Visualizer:
         return scatter_x, scatter_y, scatter_z
 
     def true_rate(self, conc):
-        # conc = np.array(conc)
-        # dC1 = -0.1 * conc[0]
-        # dC2 = 0.1 * conc[0] - 0.02 * conc[1]
-        # rate = np.array([dC1, dC2])
-
-        # C = conc
-        # k = [0.5, 0.3, 0.1, 0.006]
-        #
-        # rate = [-k[0] * C[0] + k[3] * C[1],
-        #         k[0] * C[0] + k[2] * C[2] - (k[1] + k[3]) * C[1],
-        #         k[1] * C[1] - k[2] * C[2]]
 
         C = (conc * self.data_scale[0])
         k = [0.5, 0.3, 0.1, 0.006]
@@ -103,12 +93,16 @@ class Visualizer:
         return rate
 
     def pred_rate(self, conc):
-        self.model.to(self.device)
-        rate = self.model.get_rate(torch.tensor(conc).float().to(self.device)).cpu().detach().numpy()
+        self.model.to(self.cfg.device)
+        rate = self.model.get_rate(torch.tensor(conc).float().to(self.cfg.device)).cpu().detach().numpy()
 
         return rate
 
     def run(self):
+        self.vis_rate()
+        self.vis_rtd()
+
+    def vis_rate(self):
         self.model.eval()
 
         minn = 0.7
@@ -185,9 +179,22 @@ class Visualizer:
             ax3.legend()
 
             fig.suptitle(Title[n])
-            plt.show(dpi=2400)
+            plt.show()
             plt.clf()
-            #
-            # loss_map = np.abs((pred_map - true_map)) / (np.abs(true_map) + 0.00001)
-            # loss = np.mean(loss_map)
-            # print(loss)
+
+    def vis_rtd(self):
+
+        RTD_0 = self.model.get_RTD(torch.tensor([0.05]).to(self.cfg.device))
+        RTD_1 = RTD_0.cpu().detach().numpy()
+
+        plt.figure()
+        plt.plot(numpy.linspace(self.cfg.RTD_max_tau / self.cfg.RTD_N,
+                                self.cfg.RTD_max_tau,
+                                self.cfg.RTD_N),
+                 numpy.flip(RTD_1) * self.cfg.RTD_N / self.cfg.RTD_max_tau)
+        plt.ylim(0, 1)
+        plt.xlim(0, self.cfg.RTD_max_tau)
+        plt.title("RTD")
+        plt.show()
+
+        pass

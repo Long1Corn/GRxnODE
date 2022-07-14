@@ -73,11 +73,6 @@ class RTD:
       Model the system behavior by the residence time distribution (RTD)
       The RTD information of the system is learned from the trainset by attention mechanism.
       The system output is calculated using the RTD and the degree of mixing of the system:
-            (   perfect mixing  :   the concentration is uniform in the reactor,
-                                    ideal mixing
-                segregation     :   feed into the reactor as segregate droplets,
-                                    ideal segregation,
-                non-ideal       :   the system shows both mixing and segregation effect)
 
       params:
           cfg         :   config (refer to cfg.py for more details)
@@ -151,7 +146,7 @@ class RTD:
         start = time.time()
         current_loss = 0
 
-        for itr in range(1, self.cfg.itr + 1):
+        for itr in range(1, self.cfg.epoch + 1):
 
             self.model.train()
 

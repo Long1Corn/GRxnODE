@@ -1,5 +1,5 @@
 from Engine.model_visualizer import Visualizer
-from NeuralODE.Engine.cfg import CFG
+from Engine.cfg import CFG
 import numpy as np
 import os
 
@@ -26,7 +26,6 @@ def get_dataset(data_dir, f=5, s=1, scale=None):
     data_output = (data_output[:, 0:1, :]) / scale[0]
     data_input = (data_input) / scale[0]
 
-
     y0_data = (np.zeros((100, 3))) / scale[0]
 
     time_data = data_time[::f]
@@ -44,9 +43,9 @@ def get_dataset(data_dir, f=5, s=1, scale=None):
     return dataset, scale
 
 
-def get_data(f=5, s=1 , data=""):
-    train_dir = r"/home/pengfei/projects/neural_ode/TheoryGuidedRNN/dataset/PFR_dif_train"
-    test_dir = r"/home/pengfei/projects/neural_ode/TheoryGuidedRNN/dataset/PFR_dif_test"
+def get_data(f=5, s=1):
+    train_dir = r"Data/dataset/PFR_dif_train"
+    test_dir = r"Data/dataset/PFR_dif_test"
 
     trainset, scale = get_dataset(train_dir, f=f, s=s)
     testset, _ = get_dataset(test_dir, f=5, s=1, scale=scale)
@@ -55,7 +54,7 @@ def get_data(f=5, s=1 , data=""):
 
 
 if __name__ == "__main__":
-    trainset, testset, scale = get_data(data="CSTR_2")
+    trainset, testset, scale = get_data()
 
     y = trainset["y_data"].squeeze()
     p = trainset["p_data"][0]
