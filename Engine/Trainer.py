@@ -35,7 +35,7 @@ def get_batch(datasets, device):
 
         time_data = dataset["time_data"]
         p_data = dataset["p_data"]
-        y_data = dataset["y_data"]
+
         y0_data = dataset["y0_data"]
 
         L = len(time_data)
@@ -44,15 +44,19 @@ def get_batch(datasets, device):
         time_train = time_data[start:start + size] - time_data[start]
         time_train = torch.tensor(time_train, dtype=torch.float).to(device)
 
-        y_train = y_data[start:start + size, :]
-        y_train = torch.from_numpy(y_train).float().to(device)
-
         p_train = []
         for one_p in p_data:
             one_p_copy = one_p.copy()
             p_train.append(torch.tensor(one_p_copy, dtype=torch.float).to(device))
 
         y0_train = torch.from_numpy(y0_data).float().to(device)
+
+        if "y_data" in dataset:
+            y_data = dataset["y_data"]
+            y_train = y_data[start:start + size, :]
+            y_train = torch.from_numpy(y_train).float().to(device)
+        else:
+            y_train = None
 
         batch_data.append([y0_train, time_train, y_train, p_train])
 
@@ -82,8 +86,10 @@ class RTD:
 
     def __init__(self, cfg, trainsets, testsets):
         self.cfg = cfg
-        self.trainsets = get_batch(trainsets, device=self.cfg.device)
-        self.testsets = get_batch(testsets, device=self.cfg.device)
+        if trainsets:
+            self.trainsets = get_batch(trainsets, device=self.cfg.device)
+        if testsets:
+            self.testsets = get_batch(testsets, device=self.cfg.device)
         self.model = Model_Zoo.RTD(self.cfg.model_in_var,
                                    self.cfg.model_hidden_var,
                                    self.cfg.model_out_var,

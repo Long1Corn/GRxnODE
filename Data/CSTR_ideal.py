@@ -45,8 +45,8 @@ def get_dataset(data_dir, f=5, s=1, scale=None):
 
 
 def get_data(f=5, s=1, data=""):
-    train_dir = r"Data/dataset/CSTR_1_train"
-    test_dir = r"Data/dataset/CSTR_1_test"
+    train_dir = r"Data/dataset/CSTR_1_train/"
+    test_dir = r"Data/dataset/CSTR_1_test/"
 
     trainset, scale = get_dataset(train_dir, f=f, s=s)
     testset, _ = get_dataset(test_dir, f=5, s=1, scale=scale)

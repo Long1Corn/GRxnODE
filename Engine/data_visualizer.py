@@ -39,6 +39,5 @@ def data_vis(dataset):
 
     ax2.set_xlabel("Time (s)")
 
-    plt.legend()
     plt.show()
     plt.close()
