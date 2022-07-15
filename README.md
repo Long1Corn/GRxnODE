@@ -1,4 +1,4 @@
 # GRxnODE
 
-[image](Demo/Picture1.jpg)
+![image](Demo/Picture1.jpg)
 
