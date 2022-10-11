@@ -9,3 +9,12 @@ Generalized reactor neural ODE (GRxnODE) has high model accuracy, physical inter
 
 
 Link to the article [Generalized reactor neural ODE for dynamic reaction process modeling with physical interpretability](https://www.sciencedirect.com/science/article/pii/S138589472204966X)
+
+@article{Yin_Generalized_reactor_neural_2022,
+author = {Yin, Jun and Li, Jiali and Karimi, Iftekhar Abubakar and Wang, Xiaonan},
+doi = {10.1016/j.cej.2022.139487},
+month = {10},
+title = {{Generalized reactor neural ODE for dynamic reaction process modeling with physical interpretability}},
+url = {https://www.sciencedirect.com/science/article/pii/S138589472204966X},
+year = {2022}
+}
