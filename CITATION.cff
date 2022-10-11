@@ -2,17 +2,19 @@ cff-version: 1.2.0
 type: article
 message: "If you use this software, please cite it as below."
 authors:
-- family-names: "Yin"
-  given-names: "Jun"
-  orcid: "https://orcid.org/0000-0002-8993-3178"
-- family-names: "Li"
-  given-names: "Jiali"
-- family-names: "Karimi"
-  given-names: "Iftekhar Abubakar"
-- family-names: "Wang"
-  given-names: "Xiaonan"
+    - family-names: "Yin"
+      given-names: "Jun"
+      orcid: "https://orcid.org/0000-0002-8993-3178"
+    - family-names: "Li"
+      given-names: "Jiali"
+    - family-names: "Karimi"
+      given-names: "Iftekhar Abubakar"
+    - family-names: "Wang"
+      given-names: "Xiaonan"
 title: "Generalized reactor neural ODE for dynamic reaction process modeling with physical interpretability"
 version: 1.0.0
 doi: 10.1016/j.cej.2022.139487
 date-released: 2022-10-02
 url: "https://www.sciencedirect.com/science/article/pii/S138589472204966X"
+repository-code: "https://github.com/rtqichen/torchdiffeq"
+license: MIT
