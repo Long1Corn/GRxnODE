@@ -17,5 +17,5 @@ preferred-citation:
     doi: 10.1016/j.cej.2022.139487
     date-released: 2022-10-02
     url: "https://www.sciencedirect.com/science/article/pii/S138589472204966X"
-    repository-code: "https://github.com/rtqichen/torchdiffeq"
+    repository-code: "https://github.com/Long1Corn/GRxnODE"
     license: MIT
